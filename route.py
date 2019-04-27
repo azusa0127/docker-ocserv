@@ -55,23 +55,25 @@ if __name__ == "__main__":
         with open(fn, "r") as f:
             for line in f:
                 domain = line.strip()
-
                 if len(domain) != 0 and domain[0] != '#':
-                    print("  Processing domain [%s] " % domain),
-                    ip = socket.gethostbyname(domain)
-                    print("IP: %s" % ip),
-                    decimal_ip = get_decimal_ip(ip)
-                    exist = False
-                    for t in route_table:
-                        if (get_decimal_ip(route_table[t][1]) & decimal_ip) == t:
-                            exist = True
-                            break
-                    if exist:
-                        print "exist, skip . . ."
-                    else:
-                        addr, mask = query_cidr(ip)
-                        route_table[get_decimal_ip(addr)] = (addr, mask)
-                        print("CIDR: %s/%s" % (addr, mask))
+                    try:
+                        print("  Processing domain [%s] " % domain),
+                        ip = socket.gethostbyname(domain)
+                        print("IP: %s" % ip),
+                        decimal_ip = get_decimal_ip(ip)
+                        exist = False
+                        for t in route_table:
+                            if (get_decimal_ip(route_table[t][1]) & decimal_ip) == t:
+                                exist = True
+                                break
+                        if exist:
+                            print("exist, skip . . .")
+                        else:
+                            addr, mask = query_cidr(ip)
+                            route_table[get_decimal_ip(addr)] = (addr, mask)
+                            print("CIDR: %s/%s" % (addr, mask))
+                    except:
+                        print("[Warning] domain %s failed to resolve." % domain)
 
     tables = sorted(route_table.items())
 

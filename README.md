@@ -1,3 +1,12 @@
+**This is a modified version from the original project**
+
+# Modifications on Apr, 2019
+- Update to version 0.12.4 and use Alpine 3.9 as base image
+- Refactored Dockerfile structure
+- Added logging policy in `docker-compose.yml`
+- Removed Chinese charaters from `groupinfo.txt`, which may not display correctly on some client.
+- Made `route.py` robust to domain lookup failures and added netflix and dropbox to `domain-common.txt`.
+
 # docker-ocserv
 
 docker-ocserv is an OpenConnect VPN Server boxed in a Docker image built by [Tommy Lau](mailto:tommy@gen-new.com).
@@ -10,7 +19,7 @@ Update to version 0.11.8 and use Alpine 3.6 as base image
 
 You can login with two group (`Route`/`ALL`) from now on.
 `Route` group means you can access China Mainland website directly and other connection will be protected by OpenConnect VPN
-`All` group means all of connection will be protected by OpenConnect VPN 
+`All` group means all of connection will be protected by OpenConnect VPN
 
 ## Update on July 16, 2016
 
